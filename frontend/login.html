@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Login Admin - Dolce Pizza</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>🔐 Admin Login</h2>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Mot de passe">
+
+  <button onclick="login()">Se connecter</button>
+
+  <p class="error" id="error"></p>
+</div>
+
+<script>
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (email === "admin@pizza.com" && password === "1234") {
+    localStorage.setItem("auth", "true");
+    window.location.href = "admin.html";
+  } else {
+    document.getElementById("error").innerText = "❌ Mauvais login";
+  }
+}
+</script>
+
+</body>
+</html>

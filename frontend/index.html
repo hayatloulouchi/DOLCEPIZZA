@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carte de visite - Dolce Pizza</title>
+  <link rel="stylesheet" href="carte.css" />
+  <style>
+    .carte {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .carte-info {
+      flex: 1;
+    }
+    .qr-code {
+      margin-left: 20px;
+    }
+    .qr-code img {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="carte">
+    <div class="carte-info">
+      <h1>Dolce Pizza 🍕</h1>
+      <p><strong>Nom :</strong> NOURA LOULOUCHI </p>
+      <p><strong>Profession :</strong> Gérante</p>
+      <p><strong>Email :</strong> <a href="mailto:contact@dolcepizza.com">contact@dolcepizza.com</a></p>
+      <p><strong>Téléphone :</strong> <a href="tel:+21612345678">+216 12 345 678</a></p>
+      <p><strong>Site web :</strong> <a href="https://dolcepizza.com" target="_blank">dolcepizza.com</a></p>
+      <p><strong>Adresse :</strong> Meknes, Maroc</p>
+      <div class="socials">
+        <a href="https://facebook.com/dolcepizza" target="_blank">Facebook</a>
+        <a href="https://instagram.com/dolcepizza" target="_blank">Instagram</a>
+      </div>
+    </div>
+    <div class="qr-code">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://dolcepizza.com/menu" alt="QR Code vers le menu" />
+    </div>
+  </div>
+</body>
+</html>

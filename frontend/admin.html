@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<title>Admin - Dolce Pizza</title>
+
+<!-- 🔐 Protection -->
+<script>
+if (localStorage.getItem("auth") !== "true") {
+  window.location.href = "login.html";
+}
+</script>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logout {
+  background: black;
+  color: white;
+}
+
+.refresh {
+  background: #3498db;
+  color: white;
+}
+
+.delete {
+  background: red;
+  color: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background: #e74c3c;
+  color: white;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="top-bar">
+  <button class="refresh" onclick="loadCommandes()">🔄 Rafraîchir</button>
+  <button class="logout" onclick="logout()">🚪 Déconnexion</button>
+</div>
+
+<h1>📊 Liste des commandes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Produit</th>
+      <th>Quantité</th>
+      <th>Adresse</th>
+      <th>Téléphone</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="tbody"></tbody>
+</table>
+
+<script>
+// 📥 Charger commandes
+function loadCommandes() {
+  fetch("http://localhost:8080/api/commandes")
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.getElementById("tbody");
+      tbody.innerHTML = "";
+
+      if (data.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='7'>Aucune commande</td></tr>";
+        return;
+      }
+
+      data.forEach(cmd => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${cmd.id}</td>
+            <td>${cmd.nomClient}</td>
+            <td>${cmd.produit}</td>
+            <td>${cmd.quantite}</td>
+            <td>${cmd.adresse}</td>
+            <td>${cmd.telephone}</td>
+            <td>
+              <button class="delete" onclick="deleteCommande(${cmd.id})">
+                Supprimer
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("tbody").innerHTML =
+        "<tr><td colspan='7'>❌ Erreur serveur</td></tr>";
+    });
+}
+
+// 🗑️ Supprimer
+function deleteCommande(id) {
+  if (!confirm("Supprimer cette commande ?")) return;
+
+  fetch("http://localhost:8080/api/commandes/" + id, {
+    method: "DELETE"
+  }).then(() => loadCommandes());
+}
+
+// 🚪 Logout
+function logout() {
+  localStorage.removeItem("auth");
+  window.location.href = "login.html";
+}
+
+// 🔄 Auto load
+loadCommandes();
+</script>
+
+</body>
+</html>

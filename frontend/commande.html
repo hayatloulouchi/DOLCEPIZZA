@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Commande - Dolce Pizza</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>📦 Passez votre commande 📦</h1>
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="menu.html">Menu</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<main>
+    <h2>Commander une pizza 🍕</h2>
+
+```
+<form id="commandeForm">
+
+    <label>Pizza :</label>
+    <select name="produit">
+        <option value="Margherita">Pizza Margherita</option>
+        <option value="Quattro Stagioni">Pizza Quattro Stagioni</option>
+        <option value="Pepperoni">Pizza Pepperoni</option>
+    </select>
+
+    <label>Quantité :</label>
+    <input type="number" name="quantite" min="1" required>
+
+    <h3>Informations client</h3>
+
+    <input type="text" name="nomClient" placeholder="Nom complet" required>
+    <input type="text" name="adresse" placeholder="Adresse" required>
+    <input type="tel" name="telephone" placeholder="Téléphone" required>
+
+    <button type="submit">Commander 🍕</button>
+
+</form>
+```
+
+</main>
+
+<footer>
+    &copy; 2025 Dolce Pizza
+</footer>
+
+<script>
+document.getElementById("commandeForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+
+    fetch("http://localhost:8080/api/commandes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nomClient: form.nomClient.value,
+            produit: form.produit.value,
+            quantite: form.quantite.value,
+            adresse: form.adresse.value,
+            telephone: form.telephone.value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("✅ Commande envoyée !");
+        window.location.href = "confirmation commande.html";
+    })
+    .catch(err => {
+        alert("❌ Erreur serveur");
+        console.error(err);
+    });
+});
+</script>
+
+</body>
+</html>
+
+
