@@ -156,3 +156,18 @@ button {
   margin-top: 5px;
   background: #555;
 }
+.password-box {
+  position: relative;
+}
+
+.password-box input {
+  width: 100%;
+  padding: 10px;
+}
+
+.password-box span {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  cursor: pointer;
+}
